@@ -38,9 +38,9 @@ public class SchoolMember {
     }
 
     // Get the name of the person
-    public void getNames()
+    public String getNames()
     {
-        System.out.printf("The name of the %s is: %s %s\n", this.position, this.firstName, this.lastName);
+        return String.format("%s %s\n", this.firstName, this.lastName);
     }
 
     // Set the email address of the person
@@ -61,19 +61,17 @@ public class SchoolMember {
         return "The total number of people at the school is: " + numberOfSchoolMembers;
     }
 
-    private void hashPass()
-    {
-
-    }
-
     // Create a password for the email of the user
     public String setPassword() throws NoSuchAlgorithmException {
+
         // Create variables for hash
         String algorithm = "MD5";
         System.out.println("Please enter your new password");
         Scanner enterPass = new Scanner(System.in);
         String enteredPass = enterPass.nextLine();
         String EncPass = generateHash(enteredPass, algorithm);
+
+        // Set the password as the hashed value
         return this.password = EncPass;
     }
 
@@ -85,6 +83,7 @@ public class SchoolMember {
         return bytesToStringHex(hash);
     }
 
+    // Permit hex encoding
     private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
     // Encrypts the hashed password
