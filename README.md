@@ -1,7 +1,7 @@
 # school-system
 ##### :construction: making a school system for teachers, students and admin :construction:
 
-This is another project i am taking on to try and solidify my java knowledge, the idea is to have a school system where users can create new accounts, 
+The concept of this project is to have a school system where users can create new accounts, 
 store their information to a database, update their information and have administrative priviledges based on their role.
 
 ![image](https://user-images.githubusercontent.com/56073739/96710060-6f199580-1393-11eb-8de4-1cafa9fec11a.png)
