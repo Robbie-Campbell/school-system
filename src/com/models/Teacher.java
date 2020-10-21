@@ -1,4 +1,4 @@
-package com.school;
+package com.models;
 
 import java.util.Scanner;
 

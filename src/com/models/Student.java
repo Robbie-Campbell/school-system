@@ -1,4 +1,4 @@
-package com.school;
+package com.models;
 
 // Create the class for a student object
 public class Student extends SchoolMember{

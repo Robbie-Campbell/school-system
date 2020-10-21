@@ -1,4 +1,4 @@
-package com.school;
+package com.models;
 
 
 // The Admin class of the school
