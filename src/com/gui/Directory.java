@@ -113,5 +113,13 @@ public class Directory implements ActionListener {
         {
             RegisterUser run = new RegisterUser();
         }
+        else if (e.getSource() == setPass)
+        {
+            SetPassword run = new SetPassword();
+        }
+        if (e.getSource() == login)
+        {
+            Login run = new Login();
+        }
     }
 }

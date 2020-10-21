@@ -1,6 +1,7 @@
 package com.gui;
 
 import com.models.Admin;
+import com.models.SchoolMember;
 import com.models.Student;
 import com.models.Teacher;
 
@@ -16,9 +17,10 @@ public class RegisterUser implements ActionListener {
     JFrame frame;
     JPanel mainPanel, titlePanel, buttonPanel;
     Border raised;
-    JLabel title, memberPrompt, nameValue, firstNamePrompt, lastNamePrompt, agePrompt;
+    JLabel title, memberPrompt, firstNamePrompt, lastNamePrompt, agePrompt, numberOfUsers;
     JComboBox schoolMemberType;
     JTextField enterFirstName, enterLastName, enterAge;
+    JTextArea nameValue;
     JButton createStaffMember, returnToHome;
     Color darkBlue, white, darkRed, darkGreen;
     Font titleFont, buttonFont;
@@ -66,11 +68,8 @@ public class RegisterUser implements ActionListener {
 
         // Create the label objects
         memberPrompt = new JLabel("Enter school member type:");
-        memberPrompt.setBounds(300, 70, 200, 50);
+        memberPrompt.setBounds(300, 75, 200, 30);
         mainPanel.add(memberPrompt);
-        nameValue = new JLabel("");
-        nameValue.setBounds(50,300,500,60);
-        mainPanel.add(nameValue);
 
         // Labels for textfield prompts
         firstNamePrompt = new JLabel("Enter first name:");
@@ -83,6 +82,11 @@ public class RegisterUser implements ActionListener {
         agePrompt.setBounds(50,175, 200,30);
         mainPanel.add(agePrompt);
 
+        // Keep count of users
+        numberOfUsers = new JLabel("Total users: " + SchoolMember.getNumberOfSchoolMembers());
+        numberOfUsers.setBounds(300,170,200, 50);
+        numberOfUsers.setFont(buttonFont);
+        mainPanel.add(numberOfUsers);
 
         // Create button object
         createStaffMember = new JButton("Create member".toUpperCase());
@@ -103,7 +107,7 @@ public class RegisterUser implements ActionListener {
         // Create the combobox for person type
         String[] personType = {"Teacher","Admin", "Student"};
         schoolMemberType = new JComboBox(personType);
-        schoolMemberType.setBounds(300,110,100,30);
+        schoolMemberType.setBounds(300,100,200,30);
         mainPanel.add(schoolMemberType);
 
         // Create textinput objects
@@ -116,34 +120,52 @@ public class RegisterUser implements ActionListener {
         enterAge = new JTextField();
         enterAge.setBounds(50,200,200,30);
         mainPanel.add(enterAge);
+
+        // Create the area which returns the new values set by the account creation
+        nameValue = new JTextArea();
+        nameValue.setEditable(false);
+        nameValue.setBounds(50, 250, 480, 130);
+        mainPanel.add(nameValue);
+
+        // Show the frame
         frame.setVisible(true);
     }
 
+
+    // Determines which kind of account is to be made
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == createStaffMember)
         {
             switch (schoolMemberType.getSelectedIndex()) {
                 case 0:
+                    // Teacher acc
                     Teacher teacher = new Teacher(enterFirstName.getText(), enterLastName.getText(),
                             Integer.parseInt(enterAge.getText()), false);
-                    nameValue.setText(String.format("%s: %s successfully created!", teacher.position, teacher.getNames()));
-                    System.out.println(teacher.getEmail());
+                    nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                            "%sYour institute number is: %s",
+                            teacher.position, teacher.getNames(), teacher.getEmail(), teacher.getInstituteNumber()));
                     break;
                 case 1:
+                    // Admin acc
                     Admin admin = new Admin(enterFirstName.getText(), enterLastName.getText(),
                             Integer.parseInt(enterAge.getText()));
-                    nameValue.setText(String.format("%s: %s successfully created!", admin.position, admin.getNames()));
-                    System.out.println(admin.getEmail());
+                    nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                                    "%sYour institute number is: %s",
+                            admin.position, admin.getNames(), admin.getEmail(), admin.getInstituteNumber()));
                     break;
                 case 2:
+                    // Student acc
                     Student student = new Student(enterFirstName.getText(), enterLastName.getText(),
                             Integer.parseInt(enterAge.getText()));
-                    nameValue.setText(String.format("%s: %s successfully created!", student.position, student.getNames()));
-                    System.out.println(student.getEmail());
+                    nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                                    "%sYour institute number is: %s",
+                            student.position, student.getNames(), student.getEmail(), student.getInstituteNumber()));
                     break;
             }
+            numberOfUsers.setText("Total users: " + SchoolMember.getNumberOfSchoolMembers());;
         }
 
+        // Returns the user back to the home directory
         if (e.getSource() == returnToHome)
         {
             frame.dispose();

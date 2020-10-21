@@ -2,12 +2,12 @@ package com.gui;
 
 import javax.swing.*;
 
-public class Login {
-    JFrame frame;
+public class SetPassword {
 
-    public Login()
+    JFrame frame;
+    public SetPassword()
     {
-        frame = new JFrame("Login to account");
+        frame = new JFrame("Set Account Password");
         frame.setResizable(false);
         frame.setBounds(200,200,300,400);
 

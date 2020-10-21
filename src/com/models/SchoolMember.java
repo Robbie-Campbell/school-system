@@ -37,28 +37,33 @@ public class SchoolMember {
         this.instituteNumber = (int)(Math.random() * 10000) + 1000;
     }
 
+    public String getInstituteNumber()
+    {
+        return String.valueOf(this.instituteNumber);
+    }
+
     // Get the name of the person
     public String getNames()
     {
-        return String.format("%s %s\n", this.firstName, this.lastName);
+        return String.format("%s %s ", this.firstName, this.lastName);
     }
 
     // Set the email address of the person
     protected void setEmail()
     {
-        this.email = this.firstName + this.lastName + this.instituteNumber + "@" + this.position.toLowerCase() + ".school.com";
+        this.email = this.firstName.toLowerCase() + this.lastName.toLowerCase() + this.instituteNumber + "@" + this.position.toLowerCase() + ".school.com";
     }
 
     // Return the email address of the person
     public String getEmail()
     {
-        return String.format("The institute email of %s %s is: %s\n", this.firstName, this.lastName, this.email);
+        return String.format("The institute email of %s %s is: \n%s\n", this.firstName, this.lastName, this.email);
     }
 
     // Return the total number of the school members
-    public static String getNumberOfSchoolMembers()
+    public static int getNumberOfSchoolMembers()
     {
-        return "The total number of people at the school is: " + numberOfSchoolMembers;
+        return numberOfSchoolMembers;
     }
 
     // Create a password for the email of the user
