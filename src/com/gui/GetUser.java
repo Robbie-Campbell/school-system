@@ -2,10 +2,13 @@ package com.gui;
 
 import javax.swing.*;
 
-public class Login {
+public class GetUser {
     JFrame frame;
+    JLabel showAllUsers;
+    JButton getAllusers;
 
-    public Login()
+
+    public GetUser()
     {
         frame = new JFrame("Login to account");
         frame.setResizable(false);

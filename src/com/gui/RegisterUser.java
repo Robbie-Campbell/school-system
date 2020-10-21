@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class RegisterUser implements ActionListener {
 
@@ -25,8 +26,7 @@ public class RegisterUser implements ActionListener {
     Color darkBlue, white, darkRed, darkGreen;
     Font titleFont, buttonFont;
 
-    public RegisterUser ()
-    {
+    public RegisterUser () throws SQLException {
 
         // Create the frame object
         frame = new JFrame("School Project");
@@ -83,10 +83,10 @@ public class RegisterUser implements ActionListener {
         mainPanel.add(agePrompt);
 
         // Keep count of users
-        numberOfUsers = new JLabel("Total users: " + SchoolMember.getNumberOfSchoolMembers());
-        numberOfUsers.setBounds(300,170,200, 50);
-        numberOfUsers.setFont(buttonFont);
-        mainPanel.add(numberOfUsers);
+//        numberOfUsers = new JLabel("Total users: " + totalUsers);
+//        numberOfUsers.setBounds(300, 170, 200, 50);
+//        numberOfUsers.setFont(buttonFont);
+//        mainPanel.add(numberOfUsers);
 
         // Create button object
         createStaffMember = new JButton("Create member".toUpperCase());
@@ -136,33 +136,48 @@ public class RegisterUser implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == createStaffMember)
         {
+
             switch (schoolMemberType.getSelectedIndex()) {
                 case 0:
                     // Teacher acc
-                    Teacher teacher = new Teacher(enterFirstName.getText(), enterLastName.getText(),
-                            Integer.parseInt(enterAge.getText()), false);
+                    try{
+                        Teacher teacher = new Teacher(enterFirstName.getText(), enterLastName.getText(),
+                                Integer.parseInt(enterAge.getText()), false);
+
                     nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
                             "%sYour institute number is: %s",
                             teacher.position, teacher.getNames(), teacher.getEmail(), teacher.getInstituteNumber()));
+                        teacher.submitToDatabase();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                     break;
                 case 1:
                     // Admin acc
-                    Admin admin = new Admin(enterFirstName.getText(), enterLastName.getText(),
-                            Integer.parseInt(enterAge.getText()));
-                    nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
-                                    "%sYour institute number is: %s",
-                            admin.position, admin.getNames(), admin.getEmail(), admin.getInstituteNumber()));
+                    try {
+                        Admin admin = new Admin(enterFirstName.getText(), enterLastName.getText(),
+                                Integer.parseInt(enterAge.getText()));
+                        nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                                        "%sYour institute number is: %s",
+                                admin.position, admin.getNames(), admin.getEmail(), admin.getInstituteNumber()));
+                    } catch (SQLException throwables)
+                    {
+                        throwables.printStackTrace();
+                    }
                     break;
                 case 2:
-                    // Student acc
-                    Student student = new Student(enterFirstName.getText(), enterLastName.getText(),
-                            Integer.parseInt(enterAge.getText()));
-                    nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
-                                    "%sYour institute number is: %s",
-                            student.position, student.getNames(), student.getEmail(), student.getInstituteNumber()));
+                    try {
+                        // Student acc
+                        Student student = new Student(enterFirstName.getText(), enterLastName.getText(),
+                                Integer.parseInt(enterAge.getText()));
+                        nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                                        "%sYour institute number is: %s",
+                                student.position, student.getNames(), student.getEmail(), student.getInstituteNumber()));
+                    }catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                     break;
             }
-            numberOfUsers.setText("Total users: " + SchoolMember.getNumberOfSchoolMembers());;
         }
 
         // Returns the user back to the home directory

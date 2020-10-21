@@ -1,6 +1,8 @@
 package com.models;
 
 
+import java.sql.SQLException;
+
 // The Admin class of the school
 public class Admin extends SchoolMember{
 
@@ -8,7 +10,7 @@ public class Admin extends SchoolMember{
     private static int numberOfAdmin;
 
     // Extends the SchoolMember class
-    public Admin(String firstName, String lastName, int age) {
+    public Admin(String firstName, String lastName, int age) throws SQLException {
         super(firstName, lastName, age);
 
         // Increment the number of Admin staff

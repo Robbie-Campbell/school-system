@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Directory implements ActionListener {
 
@@ -83,7 +84,7 @@ public class Directory implements ActionListener {
 
         // Create the login button and add it to the panel
         c.gridy = 2;
-        login = new JButton("Login To System");
+        login = new JButton("Find a user");
         login.setBackground(darkGreen);
         login.setForeground(white);
         login.setFont(buttonFont);
@@ -111,7 +112,11 @@ public class Directory implements ActionListener {
         frame.dispose();
         if (e.getSource() == registerUser)
         {
-            RegisterUser run = new RegisterUser();
+            try {
+                RegisterUser run = new RegisterUser();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         else if (e.getSource() == setPass)
         {
@@ -119,7 +124,7 @@ public class Directory implements ActionListener {
         }
         if (e.getSource() == login)
         {
-            Login run = new Login();
+             GetUser run = new GetUser();
         }
     }
 }
