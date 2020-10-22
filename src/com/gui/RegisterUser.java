@@ -88,7 +88,7 @@ public class RegisterUser implements ActionListener {
         numberOfUsers.setFont(buttonFont);
         mainPanel.add(numberOfUsers);
 
-        // Create button object
+        // Create create staff button object
         createStaffMember = new JButton("Create member".toUpperCase());
         createStaffMember.addActionListener(this);
         createStaffMember.setBackground(darkBlue);

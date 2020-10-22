@@ -83,7 +83,7 @@ public class Directory implements ActionListener {
 
         // Create the login button and add it to the panel
         c.gridy = 2;
-        login = new JButton("Login To System");
+        login = new JButton("Find a user");
         login.setBackground(darkGreen);
         login.setForeground(white);
         login.setFont(buttonFont);
@@ -119,7 +119,7 @@ public class Directory implements ActionListener {
         }
         if (e.getSource() == login)
         {
-            Login run = new Login();
+            FindUser run = new FindUser();
         }
     }
 }
