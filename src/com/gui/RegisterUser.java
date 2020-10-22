@@ -160,6 +160,7 @@ public class RegisterUser implements ActionListener {
                         nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
                                         "%sYour institute number is: %s",
                                 admin.position, admin.getNames(), admin.getEmail(), admin.getInstituteNumber()));
+                        admin.submitToDatabase();
                     } catch (SQLException throwables)
                     {
                         throwables.printStackTrace();
@@ -173,6 +174,7 @@ public class RegisterUser implements ActionListener {
                         nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
                                         "%sYour institute number is: %s",
                                 student.position, student.getNames(), student.getEmail(), student.getInstituteNumber()));
+                        student.submitToDatabase();
                     }catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

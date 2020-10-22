@@ -14,7 +14,7 @@ public class FindUser implements ActionListener {
     JPanel mainPanel, resultPanel, buttonPanel;
     JTextArea result;
     JLabel inputPrompt;
-    JComboBox searchType;
+    JComboBox searchType, positionType;
     JTextField searchArea;
     JButton search, returnToHome;
     Border raised;
@@ -71,12 +71,18 @@ public class FindUser implements ActionListener {
         inputPrompt.setBounds(10,100,270,30);
         mainPanel.add(inputPrompt);
 
-        // Create the combobox
+        // Create the combobox for search parameter
         String[] searchParameter = {"first_name","last_name", "age", "institute_number", "email", "position", "role"};
         searchType = new JComboBox(searchParameter);
         searchType.setBounds(10,170,270,30);
         searchType.addActionListener(this);
         mainPanel.add(searchType);
+
+        // Create the combobox
+        String[] position = {"teacher","student", "admin"};
+        positionType = new JComboBox(position);
+        positionType.setBounds(10,210,270,30);
+        mainPanel.add(positionType);
 
         // Create the button to search and add event listeners
         search = new JButton("Search for user");
@@ -103,7 +109,8 @@ public class FindUser implements ActionListener {
         if (e.getSource() == search)
         {
             try {
-                SearchForUser sfu = new SearchForUser(searchArea.getText(), searchType.getSelectedItem().toString());
+                SearchForUser sfu = new SearchForUser(searchArea.getText(), searchType.getSelectedItem().toString(),
+                        positionType.getSelectedItem().toString());
                 result.setText(sfu.returnValue);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

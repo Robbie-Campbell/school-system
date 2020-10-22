@@ -26,4 +26,12 @@ public class Admin extends SchoolMember{
     {
         return "Number of admin staff: " + numberOfAdmin;
     }
+
+    public void submitToDatabase() throws SQLException {
+        System.out.println(this.getInstituteNumber());
+        String adminData = String.format("(%d, '%s','%s',%d,'%s',NULL,'%s', NULL);", this.getInstituteNumber(), this.firstName, this.lastName,
+                this.age, this.email, this.position);
+        String dataForInsert = "INSERT INTO admin VALUES" + adminData;
+        stat.execute(dataForInsert);
+    }
 }

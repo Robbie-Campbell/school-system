@@ -17,7 +17,7 @@ public class SchoolMember {
     private static final String pass = System.getenv("mysqlPass");
     public Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
     public Statement stat = conn.createStatement();
-    String countTeachers = "SELECT COUNT(*) FROM teacher;";
+    String countTeachers = "SELECT COUNT(*) FROM teacher";
     ResultSet rs = stat.executeQuery(countTeachers);
 
     // Keep track of total number of people at the school
