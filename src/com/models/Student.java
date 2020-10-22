@@ -1,5 +1,7 @@
 package com.models;
 
+import java.sql.SQLException;
+
 // Create the class for a student object
 public class Student extends SchoolMember{
 
@@ -7,7 +9,7 @@ public class Student extends SchoolMember{
     static int numberOfStudents;
 
     // Extends the base SchoolMember class
-    public Student(String firstName, String lastName, int age) {
+    public Student(String firstName, String lastName, int age) throws SQLException {
         super(firstName, lastName, age);
 
         // Increment the number of students

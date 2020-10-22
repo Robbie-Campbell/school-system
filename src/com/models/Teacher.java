@@ -1,6 +1,7 @@
 package com.models;
 
 import java.util.Scanner;
+import java.sql.*;
 
 // The teacher class represents all of the teachers in the school.
 public class Teacher extends SchoolMember{
@@ -14,7 +15,7 @@ public class Teacher extends SchoolMember{
     private boolean hasLevel4;
 
     // Extends the SchoolMember Class
-    public Teacher(String firstName, String lastName, int age, boolean hasLevel4) {
+    public Teacher(String firstName, String lastName, int age, boolean hasLevel4) throws SQLException {
         super(firstName, lastName, age);
 
         // Keeps a track of how many teachers are in the school
@@ -22,7 +23,7 @@ public class Teacher extends SchoolMember{
 
         // Set the defaults of this class
         this.role = "not set";
-        this.position = "Teacher";
+        this.position = "teacher";
         this.hasLevel4 = hasLevel4;
         setEmail();
     }
@@ -84,5 +85,15 @@ public class Teacher extends SchoolMember{
     public static String getTeacherNumbers()
     {
         return "Number of teaching staff: " + numberOfTeachers;
+    }
+
+    // Submit a teacher to the database
+    public void submitToDatabase() throws SQLException {
+        System.out.println(this.getInstituteNumber());
+        String teacherData = String.format("(%d, '%s','%s','%s','%s',NULL, %d , NULL, %b);", this.getInstituteNumber(), this.position, this.firstName,
+                this.lastName, this.email, this.age, this.hasLevel4);
+        String dataForInsert = "INSERT INTO teacher VALUES" + teacherData;
+        System.out.println(dataForInsert);
+        stat.execute(dataForInsert);
     }
 }

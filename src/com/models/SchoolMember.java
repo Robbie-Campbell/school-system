@@ -1,7 +1,10 @@
 package com.models;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.*;
 import java.util.Scanner;
 
 import static com.functions.PasswordHasher.generateHash;
@@ -9,8 +12,16 @@ import static com.functions.PasswordHasher.generateHash;
 // This is the super class for all of the positions in the school
 public class SchoolMember {
 
+    
+    private static final String username = "root";
+    private static final String pass = System.getenv("mysqlPass");
+    public Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
+    public Statement stat = conn.createStatement();
+    String countTeachers = "SELECT COUNT(*) FROM teacher;";
+    ResultSet rs = stat.executeQuery(countTeachers);
+
     // Keep track of total number of people at the school
-    private static int numberOfSchoolMembers;
+    public static int numberOfSchoolMembers;
 
     // Declare all variables
     private final int instituteNumber;
@@ -20,12 +31,11 @@ public class SchoolMember {
     public String email;
     private String password;
     public int age;
-    public SchoolMember(String firstName, String lastName, int age)
-    {
+    public SchoolMember(String firstName, String lastName, int age) throws SQLException {
 
         // Increment the number of people at the school
-        numberOfSchoolMembers++;
-
+        rs.next();
+        numberOfSchoolMembers = rs.getInt(1);
         // Set default variables
         this.position = "Undefined";
         this.firstName = firstName;
@@ -34,12 +44,12 @@ public class SchoolMember {
 
 
         // Set the number of the student at the school
-        this.instituteNumber = (int)(Math.random() * 10000) + 1000;
+        this.instituteNumber = 10001 + numberOfSchoolMembers;
     }
 
-    public String getInstituteNumber()
+    public int getInstituteNumber()
     {
-        return String.valueOf(this.instituteNumber);
+        return this.instituteNumber;
     }
 
     // Get the name of the person
