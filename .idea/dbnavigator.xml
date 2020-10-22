@@ -25,6 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="fe8002e3-4d80-4aad-80fb-960f2a599c06">
+        <schema name="school-system" object-types="table, procedure, column, view, index, constraint, function, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>

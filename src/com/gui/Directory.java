@@ -15,7 +15,7 @@ public class Directory implements ActionListener {
     JLabel title, image;
     ImageIcon imageIcon;
     Border raised;
-    JButton registerUser, setPass, login;
+    JButton registerUser, setPass, findUser;
     Color darkBlue, white, darkRed, darkGreen;
     GridBagLayout mainPanelLayout;
     GridBagConstraints c;
@@ -82,13 +82,13 @@ public class Directory implements ActionListener {
         registerUser.setFont(buttonFont);
         mainPanel.add(registerUser, c);
 
-        // Create the login button and add it to the panel
+        // Create the findUser button and add it to the panel
         c.gridy = 2;
-        login = new JButton("Find a user");
-        login.setBackground(darkGreen);
-        login.setForeground(white);
-        login.setFont(buttonFont);
-        mainPanel.add(login, c);
+        findUser = new JButton("Find a user");
+        findUser.setBackground(darkGreen);
+        findUser.setForeground(white);
+        findUser.setFont(buttonFont);
+        mainPanel.add(findUser, c);
 
         // Create the set password button and add it to the panel
         c.gridy = 3;
@@ -101,7 +101,7 @@ public class Directory implements ActionListener {
         // Add action listeners to the button objects
         registerUser.addActionListener(this);
         setPass.addActionListener(this);
-        login.addActionListener(this);
+        findUser.addActionListener(this);
 
         // Set the frame to visible
         frame.setVisible(true);
@@ -122,9 +122,9 @@ public class Directory implements ActionListener {
         {
             SetPassword run = new SetPassword();
         }
-        if (e.getSource() == login)
+        if (e.getSource() == findUser)
         {
-          
+          FindUser run = new FindUser();
         }
     }
 }
