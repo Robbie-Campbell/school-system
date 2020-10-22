@@ -124,7 +124,7 @@ public class Directory implements ActionListener {
         }
         if (e.getSource() == login)
         {
-             GetUser run = new GetUser();
+          
         }
     }
 }
