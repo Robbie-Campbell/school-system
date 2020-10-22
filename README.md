@@ -18,7 +18,7 @@ store their information to a database, update their information and have adminis
 
 > 3: Basic gui implementation :white_check_mark:
 
-> 4: Submit users to and search for users in the database :negative_squared_cross_mark:
+> 4: Submit users to and search for users in the database :white_check_mark:
 
 > 5: User login and update information pages :negative_squared_cross_mark: 
 
