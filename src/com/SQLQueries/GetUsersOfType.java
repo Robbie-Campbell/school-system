@@ -9,7 +9,7 @@ public class GetUsersOfType {
     // Declare variables for database
     private static final String username = "root";
     private static final String pass = System.getenv("mysqlPass");
-    private ArrayList<String> users;
+    private final ArrayList<String> users;
 
     // Get all users
     public GetUsersOfType(String table) throws SQLException {
@@ -17,8 +17,11 @@ public class GetUsersOfType {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery(search);
-        rs.next();
-        this.users.add(String.format("%s %s", rs.getString("first_name"), rs.getString("last_name")));
+        users = new ArrayList<String>();
+        while(rs.next())
+        {
+            this.users.add(String.format("%s %s", rs.getString("first_name"), rs.getString("last_name")));
+        }
     }
 
     public ArrayList<String> getResult()

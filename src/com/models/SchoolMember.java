@@ -86,20 +86,6 @@ public class SchoolMember {
         return numberOfSchoolMembers;
     }
 
-    // Create a password for the email of the user
-    public String setPassword() throws NoSuchAlgorithmException {
-
-        // Create variables for hash
-        String algorithm = "MD5";
-        System.out.println("Please enter your new password");
-        Scanner enterPass = new Scanner(System.in);
-        String enteredPass = enterPass.nextLine();
-        String EncPass = generateHash(enteredPass, algorithm);
-
-        // Set the password as the hashed value
-        return this.password = EncPass;
-    }
-
     public String checkPass() throws NoSuchAlgorithmException {
 
         // Create variables for hash
