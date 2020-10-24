@@ -14,8 +14,8 @@ public class SetPassword implements ActionListener {
     JFrame frame;
     JPanel mainPanel;
     JComboBox typeOfUser, users;
-    JLabel enterNewPass;
-    JTextField newPassword;
+    JLabel enterNewPass, confirmIDPrompt, successFeedback;
+    JTextField newPassword, confirmID;
     JButton submit;
 
     public SetPassword()
@@ -52,11 +52,24 @@ public class SetPassword implements ActionListener {
         newPassword.setColumns(20);
         mainPanel.add(newPassword);
 
+        // Confirm ID
+        confirmIDPrompt = new JLabel("Please confirm your id by entering your userID.");
+        mainPanel.add(confirmIDPrompt);
+
+        // Check ID
+        confirmID = new JTextField();
+        confirmID.setColumns(20);
+        mainPanel.add(confirmID);
+
         // Create password button
         submit = new JButton("Submit new password");
         submit.addActionListener(this);
         submit.setEnabled(false);
         mainPanel.add(submit);
+
+        // Success feedback for new password
+        successFeedback = new JLabel("");
+        mainPanel.add(successFeedback);
 
         // Make frame visible
         frame.setVisible(true);
@@ -92,8 +105,13 @@ public class SetPassword implements ActionListener {
         {
             try {
                 String[] names = String.valueOf(users.getSelectedItem()).split(" ");
-                AddPasswordToUser submitToDB = new AddPasswordToUser((String) typeOfUser.getSelectedItem(),
-                    newPassword.getText(), names[0], names[1]);
+                if (JOptionPane.showConfirmDialog(this.frame, "Are you sure you wish to set your password",
+                        "confirm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                {
+                    AddPasswordToUser submitToDB = new AddPasswordToUser((String) typeOfUser.getSelectedItem(),
+                            newPassword.getText(), names[0], names[1], Integer.parseInt(confirmID.getText()));
+                }
+                successFeedback.setText(AddPasswordToUser.success);
             } catch (SQLException | NoSuchAlgorithmException throwables) {
                 throwables.printStackTrace();
             }

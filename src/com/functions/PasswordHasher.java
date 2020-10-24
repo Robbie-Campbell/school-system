@@ -2,6 +2,7 @@ package com.functions;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 public class PasswordHasher {
 
@@ -27,5 +28,18 @@ public class PasswordHasher {
             hexChars[j * 2 + 1] = hexArray[v & 0x0F];
         }
         return new String(hexChars);
+    }
+
+    // Check the user password input
+    public static String checkPass(String pass) throws NoSuchAlgorithmException {
+
+        // Create variables for hash
+        String algorithm = "MD5";
+        String EncPass = generateHash(pass, algorithm);
+        if (EncPass.equals(pass))
+            return "That is the correct password";
+        else
+            return "That was the incorrect password";
+
     }
 }

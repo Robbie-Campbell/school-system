@@ -85,21 +85,4 @@ public class SchoolMember {
     {
         return numberOfSchoolMembers;
     }
-
-    public String checkPass() throws NoSuchAlgorithmException {
-
-        // Create variables for hash
-        String algorithm = "MD5";
-        System.out.println("Please enter your password");
-        Scanner enterPass = new Scanner(System.in);
-        String enteredPass = enterPass.nextLine();
-        String EncPass = generateHash(enteredPass, algorithm);
-        if (EncPass.equals(this.password))
-        {
-            return "That was the correct password! Well done!";
-        }
-        else
-            return "That was the incorrect password";
-
-    }
 }

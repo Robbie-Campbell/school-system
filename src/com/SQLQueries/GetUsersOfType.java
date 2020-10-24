@@ -13,7 +13,7 @@ public class GetUsersOfType {
 
     // Get all users
     public GetUsersOfType(String table) throws SQLException {
-        String search = String.format("SELECT first_name, last_name FROM %s WHERE password IS NULL", table);
+        String search = String.format("SELECT userID, first_name, last_name FROM %s WHERE password IS NULL", table);
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
         Statement stat = conn.createStatement();
         ResultSet rs = stat.executeQuery(search);
