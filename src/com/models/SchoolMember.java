@@ -12,13 +12,18 @@ import static com.functions.PasswordHasher.generateHash;
 // This is the super class for all of the positions in the school
 public class SchoolMember {
 
-    
+    // Initialise database variables
     private static final String username = "root";
     private static final String pass = System.getenv("mysqlPass");
-    public Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
+    private final Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
+    private final Connection conn1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
+    private final Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost:3306/school-system", username, pass);
     public Statement stat = conn.createStatement();
-    String countTeachers = "SELECT COUNT(*) FROM teacher";
-    ResultSet rs = stat.executeQuery(countTeachers);
+    public Statement stat1 = conn1.createStatement();
+    public Statement stat2 = conn2.createStatement();
+    ResultSet rs = stat.executeQuery("SELECT COUNT(*) FROM teacher");
+    ResultSet rs1 = stat1.executeQuery("SELECT COUNT(*) FROM admin");
+    ResultSet rs2 = stat2.executeQuery("SELECT COUNT(*) FROM student");
 
     // Keep track of total number of people at the school
     public static int numberOfSchoolMembers;
@@ -31,22 +36,27 @@ public class SchoolMember {
     public String email;
     private String password;
     public int age;
-    public SchoolMember(String firstName, String lastName, int age) throws SQLException {
+    public SchoolMember(String firstName, String lastName, int age) throws SQLException
+    {
 
         // Increment the number of people at the school
         rs.next();
-        numberOfSchoolMembers = rs.getInt(1);
+        rs1.next();
+        rs2.next();
+        int getUsers = rs.getInt(1) + rs1.getInt(1) + rs2.getInt(1);
+        numberOfSchoolMembers = getUsers;
+
         // Set default variables
         this.position = "Undefined";
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
 
-
         // Set the number of the student at the school
         this.instituteNumber = 10001 + numberOfSchoolMembers;
     }
 
+    // Get the institute number
     public int getInstituteNumber()
     {
         return this.instituteNumber;

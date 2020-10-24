@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FindUser implements ActionListener {
     JFrame frame;
@@ -72,7 +73,7 @@ public class FindUser implements ActionListener {
         mainPanel.add(inputPrompt);
 
         // Create the combobox for search parameter
-        String[] searchParameter = {"first_name","last_name", "age", "institute_number", "email", "position", "role"};
+        String[] searchParameter = {"first_name","last_name", "age", "userID", "email", "position", "role"};
         searchType = new JComboBox(searchParameter);
         searchType.setBounds(10,170,270,30);
         searchType.addActionListener(this);
@@ -110,8 +111,8 @@ public class FindUser implements ActionListener {
         {
             try {
                 SearchForUser sfu = new SearchForUser(searchArea.getText(), searchType.getSelectedItem().toString(),
-                        positionType.getSelectedItem().toString());
-                result.setText(sfu.returnValue);
+                positionType.getSelectedItem().toString());
+                result.setText(sfu.returnUsers());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

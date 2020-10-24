@@ -18,7 +18,7 @@ public class RegisterUser implements ActionListener {
     JFrame frame;
     JPanel mainPanel, titlePanel, buttonPanel;
     Border raised;
-    JLabel title, memberPrompt, firstNamePrompt, lastNamePrompt, agePrompt, numberOfUsers;
+    JLabel title, memberPrompt, firstNamePrompt, lastNamePrompt, agePrompt;
     JComboBox schoolMemberType;
     JTextField enterFirstName, enterLastName, enterAge;
     JTextArea nameValue;
@@ -132,22 +132,31 @@ public class RegisterUser implements ActionListener {
     }
 
 
+
     // Determines which kind of account is to be made
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == createStaffMember)
         {
-
+            nameValue.setText("");
             switch (schoolMemberType.getSelectedIndex()) {
                 case 0:
                     // Teacher acc
                     try{
                         Teacher teacher = new Teacher(enterFirstName.getText(), enterLastName.getText(),
-                                Integer.parseInt(enterAge.getText()), false);
-
-                    nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
-                            "%sYour institute number is: %s",
-                            teacher.position, teacher.getNames(), teacher.getEmail(), teacher.getInstituteNumber()));
-                        teacher.submitToDatabase();
+                            Integer.parseInt(enterAge.getText()), false);
+                        if (JOptionPane.showConfirmDialog(this.frame, String.format("Do you want to add %s: %s %s to the database",
+                        teacher.position, teacher.firstName, teacher.lastName), "WARNING", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                        {
+                            teacher.submitToDatabase();
+                            nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                            "%sYour institute number is: %s", teacher.position, teacher.getNames(), teacher.getEmail(),
+                            teacher.getInstituteNumber()));
+                        }
+                        else
+                        {
+                            return;
+                        }
+// no option
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }
@@ -156,11 +165,19 @@ public class RegisterUser implements ActionListener {
                     // Admin acc
                     try {
                         Admin admin = new Admin(enterFirstName.getText(), enterLastName.getText(),
-                                Integer.parseInt(enterAge.getText()));
-                        nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
-                                        "%sYour institute number is: %s",
-                                admin.position, admin.getNames(), admin.getEmail(), admin.getInstituteNumber()));
-                        admin.submitToDatabase();
+                            Integer.parseInt(enterAge.getText()));
+                        if (JOptionPane.showConfirmDialog(this.frame, String.format("Do you want to add %s: %s %s to the database",
+                                admin.position, admin.firstName, admin.lastName), "WARNING", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                        {
+                            admin.submitToDatabase();
+                            nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                            "%sYour institute number is: %s", admin.position, admin.getNames(), admin.getEmail(),
+                            admin.getInstituteNumber()));
+                        }
+                        else
+                        {
+                            return;
+                        }
                     } catch (SQLException throwables)
                     {
                         throwables.printStackTrace();
@@ -171,10 +188,18 @@ public class RegisterUser implements ActionListener {
                         // Student acc
                         Student student = new Student(enterFirstName.getText(), enterLastName.getText(),
                                 Integer.parseInt(enterAge.getText()));
-                        nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
-                                        "%sYour institute number is: %s",
-                                student.position, student.getNames(), student.getEmail(), student.getInstituteNumber()));
-                        student.submitToDatabase();
+                        if (JOptionPane.showConfirmDialog(this.frame, String.format("Do you want to add %s: %s %s to the database",
+                            student.position, student.firstName, student.lastName), "WARNING", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                        {
+                            student.submitToDatabase();
+                            nameValue.setText(String.format("%s: %ssuccessfully created!\n" +
+                            "%sYour institute number is: %s", student.position, student.getNames(), student.getEmail(),
+                            student.getInstituteNumber()));
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

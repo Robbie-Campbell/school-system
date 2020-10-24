@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+
+// The scripts to create the tables
 public class TablesSchema {
 
     private static final String username = "root";
