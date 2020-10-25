@@ -122,9 +122,9 @@ public class Directory implements ActionListener {
         {
             SetPassword run = new SetPassword();
         }
-        if (e.getSource() == findUser)
+        else if (e.getSource() == findUser)
         {
-          FindUser run = new FindUser();
+            FindUser run = new FindUser();
         }
     }
 }
